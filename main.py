@@ -36,6 +36,12 @@ def getid():
     instanceid = os.getenv('GAE_INSTANCE')
     return str(instanceid)
 
+@app.route('/version-id')
+def getversionid():
+    addVisitor()
+    versionid = os.getenv('GAE_VERSION')
+    return str(versionid)
+
 
 if __name__ == '__main__':
     # This is used when running locally only. When deploying to Google App
