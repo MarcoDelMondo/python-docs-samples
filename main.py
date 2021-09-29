@@ -33,7 +33,7 @@ def VersA():
 
 @app.route('/instance')
 def getid():
-    instanceid = os.geteng('GAE_INSTANCE')
+    instanceid = os.getenv('GAE_INSTANCE')
     return str(instanceid)
 
 
