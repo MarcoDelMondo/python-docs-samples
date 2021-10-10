@@ -69,7 +69,7 @@ def submit_post():
             dataclient.put(posts)
         else:
             posts = datastore.Entity(key=ent)
-            posts['posts'] = post
+            posts['posts'] = [post]
             dataclient.put(posts)
         return redirect('/')
     else:
