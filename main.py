@@ -90,6 +90,9 @@ def main_page():
             raw = raw.replace("!title!", array[1])
             raw = raw.replace("!time!", array[2])
             html += raw
+        with open('main.html', 'r') as page:
+            main = page.read()
+        return main.replace("!articles!", html)
     else:
         return 'No Posts!'
 if __name__ == '__main__':
