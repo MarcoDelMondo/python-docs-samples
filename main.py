@@ -9,6 +9,7 @@ app = Flask(__name__)
 
 dataclient = datastore.Client()
 
+
 def addVisitor():
     ent = dataclient.key('data', 'visitors')
     total = dataclient.get(key=ent)
@@ -19,6 +20,8 @@ def addVisitor():
         total = datastore.Entity(key=ent)
         total['total'] = 0
         dataclient.put(total)
+
+
 @app.route('/visitors')
 def getVisitor():
     addVisitor()
@@ -29,30 +32,36 @@ def getVisitor():
     else:
         return 'Total Broke!'
 
+
 @app.route('/about')
 def hello():
-    """Return a friendly HTTP greeting."""
     return 'Hi Fritter hope all is well! Ben Carrier 300290267'
+
 
 @app.route('/version')
 def VersA():
     return 'This is app version B!'
 
+
 @app.route('/instance')
 def getid():
     instanceid = os.getenv('GAE_INSTANCE')
-    return str(instanceid)
+    return str('This is Instance: ') + str(instanceid)
+
 
 @app.route('/version-id')
 def getversionid():
     addVisitor()
     versionid = os.getenv('GAE_VERSION')
-    return str(versionid)
+    return str('You are currently on Version: ') + str(versionid)
+
 
 @app.route('/editor')
 def edit_page():
     with open('editor.html', 'r') as page:
         return page.read()
+
+
 
 @app.route('/submit', methods = ['POST'])
 def submit_post():
@@ -75,6 +84,7 @@ def submit_post():
     else:
         return redirect('/')
 
+
 @app.route('/')
 def main_page():
     ent = dataclient.key('data', 'posts')
@@ -95,5 +105,7 @@ def main_page():
         return main.replace("!articles!", html)
     else:
         return 'No Posts!'
+
+
 if __name__ == '__main__':
     app.run(host='127.0.0.1', port=8080, debug=True)
